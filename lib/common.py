@@ -1,6 +1,9 @@
 '''
 存放公共信息
 '''
+from conf import settings
+import logging.config
+
 
 import hashlib
 def get_pwd_md5(password):
@@ -20,3 +23,11 @@ def login_auth(func):
             print('用户未登录')
             src.login()
     return inner
+
+
+def get_logger(log_type):
+    logging.config.dictConfig(settings.LOGGING_DIC)
+    logger=logging.getLogger(log_type)
+    return logger
+
+

@@ -156,6 +156,7 @@ def shopping():
         ['零食',556],
         ['机票',887],
     ]
+
     shopping_car={}
 
     while True:

@@ -5,6 +5,9 @@ import os
 from db import db_handler
 from lib import common
 
+
+shop_logger=common.get_logger('shop')
+
 def resister_interface(user_name,password,balance=15000):
     user_dic=db_handler.select(user_name)
     if user_dic:
@@ -19,11 +22,13 @@ def resister_interface(user_name,password,balance=15000):
         'locaked': False
     }
     db_handler.save(user_dic)
+    shop_logger.info(f'{user_name}注册成功')
     return True,f'{user_name}注册成功'
 
 def login_interface(user_name,password):
     user_dic=db_handler.select(user_name)
     if user_dic['locaked']:
+        shop_logger.info(f'{user_name}已经被锁定')
         return False,'当前用户已被锁定'
     password=common.get_pwd_md5(password)
     if user_dic:
